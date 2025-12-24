@@ -2,11 +2,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Joyeux Noël Jeanne 🎄</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Joyeux Noël Jeanne !</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,10 +13,11 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
+            position: relative;
             color: #fff;
             transition: background 1s ease;
         }
@@ -31,6 +30,32 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #4a3f6b 50%, #f093fb 100%);
         }
 
+        /* Étoiles */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Flocons de neige */
         .snowflakes {
             position: fixed;
             top: 0;
@@ -40,23 +65,27 @@
             pointer-events: none;
             z-index: 1000;
             overflow: hidden;
+            transition: opacity 0.5s ease;
         }
 
         .snowflake {
             position: absolute;
             top: -10px;
-            color: #fff;
+            color: white;
             font-size: 1rem;
-            animation: fall linear infinite;
             opacity: 0.8;
+            animation: fall linear infinite;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
         }
 
         @keyframes fall {
             0% {
                 transform: translateY(-10px) rotate(0deg);
+                opacity: 1;
             }
             100% {
                 transform: translateY(100vh) rotate(360deg);
+                opacity: 0.3;
             }
         }
 
@@ -66,114 +95,201 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 2rem 1.5rem;
+            padding: 20px;
             position: relative;
+            z-index: 2;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 2.5rem 2rem;
-            max-width: 380px;
-            width: 100%;
+        .title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.5rem;
+            color: #ffd700;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .christmas-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #ffd700, #ffec8b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 30px rgba(255,215,0,0.5);
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
         }
 
         .subtitle {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2rem;
-            font-weight: 300;
+            font-size: 1.2rem;
+            color: #e8e8e8;
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0.9;
         }
 
-        .message {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2rem;
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 30px rgba(255,215,0,0.3); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 50px rgba(255,215,0,0.8); }
         }
 
-        .choice-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        /* Boîte cadeau */
+        .gift-container {
+            perspective: 1000px;
+            margin: 20px 0;
+            padding-top: 80px;
         }
 
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 1.2rem 2rem;
-            border: none;
-            border-radius: 16px;
-            font-size: 1.1rem;
-            font-weight: 600;
+        .gift-box {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
+            transition: transform 0.3s ease;
         }
 
-        .btn-diving {
-            background: linear-gradient(135deg, #00b4db, #0083b0);
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+
+        .gift-box.opened .lid {
+            animation: openLid 1s forwards;
+        }
+
+        .box-body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #e91e63, #c2185b);
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(233,30,99,0.4);
+        }
+
+        .box-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 100%;
+            background: linear-gradient(145deg, #ffd700, #ffb300);
+        }
+
+        .box-body::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(145deg, #ffd700, #ffb300);
+        }
+
+        .lid {
+            position: absolute;
+            top: -30px;
+            left: -10px;
+            width: 220px;
+            height: 50px;
+            background: linear-gradient(145deg, #e91e63, #c2185b);
+            border-radius: 10px 10px 0 0;
+            transform-origin: bottom;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+        }
+
+        .lid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 100%;
+            background: linear-gradient(145deg, #ffd700, #ffb300);
+        }
+
+        .bow {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 40px;
+        }
+
+        .bow::before, .bow::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, #ffd700, #ffb300);
+            border-radius: 50% 50% 0 50%;
+        }
+
+        .bow::before {
+            left: 0;
+            transform: rotate(-45deg);
+        }
+
+        .bow::after {
+            right: 0;
+            transform: rotate(45deg) scaleX(-1);
+        }
+
+        @keyframes openLid {
+            0% { transform: rotateX(0deg); }
+            100% { transform: rotateX(-120deg) translateY(-50px); }
+        }
+
+        .tap-message {
+            color: #ffd700;
+            font-size: 1rem;
+            margin-top: 20px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Écran de choix */
+        .choice-container {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 1s ease;
+            max-width: 90%;
+            width: 100%;
+        }
+
+        .choice-container.show {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .choice-title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 1.8rem;
             color: #fff;
+            margin-bottom: 15px;
         }
 
-        .btn-diving:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 180, 219, 0.4);
-        }
-
-        .btn-seaplane {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            color: #fff;
-        }
-
-        .btn-seaplane:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
-        }
-
-        .btn-icon {
-            font-size: 1.5rem;
+        .choice-message {
+            color: #e8e8e8;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
         }
 
         .choices-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 15px;
+            max-width: 350px;
+            margin: 0 auto;
         }
 
         .choice-item {
@@ -182,11 +298,14 @@
             border-radius: 16px;
             overflow: hidden;
             background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
         }
 
         .choice-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #ffd700;
         }
 
         .choice-item:active {
@@ -195,7 +314,7 @@
 
         .choice-image {
             width: 100%;
-            height: 120px;
+            height: 100px;
             overflow: hidden;
         }
 
@@ -211,67 +330,78 @@
         }
 
         .choice-label-btn {
-            padding: 0.8rem 0.5rem;
+            padding: 12px 8px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             text-align: center;
+            color: #fff;
         }
 
-        .footer {
-            margin-top: 2rem;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .heart {
-            color: #ff6b6b;
-            animation: heartbeat 1.5s ease-in-out infinite;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        /* Confirmation screen */
-        .confirmation {
+        /* Confirmation */
+        .confirm-container {
             display: none;
             text-align: center;
+            animation: fadeInUp 1s ease;
+            max-width: 90%;
         }
 
-        .confirmation.active {
+        .confirm-container.show {
             display: block;
         }
 
-        .choice-card.hidden {
-            display: none;
-        }
-
-        .confirmation-icon {
+        .confirm-icon {
             font-size: 4rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
         }
 
-        .confirmation h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .confirm-title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #00ff88 50%, #ffdd00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { filter: brightness(1) drop-shadow(0 0 20px rgba(0,212,255,0.5)); }
+            50% { filter: brightness(1.3) drop-shadow(0 0 40px rgba(0,255,136,0.8)); }
+        }
+
+        .confirm-message {
+            color: #e8e8e8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .signature {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 1.5rem;
             color: #ffd700;
-        }
-
-        .confirmation p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.9);
+            margin-top: 20px;
         }
 
         .back-btn {
-            margin-top: 2rem;
+            margin-top: 25px;
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 12px 25px;
+            border-radius: 50px;
             cursor: pointer;
             font-size: 0.9rem;
             transition: all 0.3s ease;
@@ -279,6 +409,29 @@
 
         .back-btn:hover {
             background: rgba(255, 255, 255, 0.1);
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+
+        /* Confettis */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: confetti-fall 3s linear forwards;
+            z-index: 999;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
         }
 
         /* Themed particles */
@@ -326,15 +479,10 @@
         }
 
         @keyframes drift {
-            0% {
-                transform: translateX(-100px);
-            }
-            100% {
-                transform: translateX(calc(100vw + 100px));
-            }
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
         }
 
-        /* Fish swimming for diving theme */
         .fish {
             position: absolute;
             font-size: 1.5rem;
@@ -342,15 +490,10 @@
         }
 
         @keyframes swim {
-            0% {
-                transform: translateX(-50px) scaleX(1);
-            }
-            100% {
-                transform: translateX(calc(100vw + 50px)) scaleX(1);
-            }
+            0% { transform: translateX(-50px); }
+            100% { transform: translateX(calc(100vw + 50px)); }
         }
 
-        /* Seaplane flying */
         .plane {
             position: absolute;
             font-size: 2rem;
@@ -358,107 +501,149 @@
         }
 
         @keyframes fly {
-            0% {
-                transform: translateX(-100px) translateY(0);
+            0% { transform: translateX(-100px) translateY(0); }
+            50% { transform: translateX(50vw) translateY(-20px); }
+            100% { transform: translateX(calc(100vw + 100px)) translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 400px) {
+            .title {
+                font-size: 2rem;
             }
-            50% {
-                transform: translateX(50vw) translateY(-20px);
+            .gift-box {
+                width: 160px;
+                height: 160px;
             }
-            100% {
-                transform: translateX(calc(100vw + 100px)) translateY(0);
+            .lid {
+                width: 180px;
+            }
+            .choice-title {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
+    <div class="stars" id="stars"></div>
     <div class="snowflakes" id="snowflakes"></div>
     <div class="bubbles" id="bubbles"></div>
     <div class="clouds" id="clouds"></div>
 
     <div class="container">
-        <div class="card">
-            <!-- Choice screen -->
-            <div class="choice-card" id="choiceCard">
-                <div class="christmas-icon">🎄</div>
-                <h1>Joyeux Noël Jeanne</h1>
-                <p class="subtitle">Un cadeau t'attend...</p>
+        <h1 class="title">🎄 Joyeux Noël Jeanne ! 🎄</h1>
+        <p class="subtitle">Un cadeau spécial t'attend...</p>
 
-                <p class="message">
-                    Cette année, tu as le choix entre deux aventures extraordinaires.
-                    Laquelle te fait le plus rêver ?
-                </p>
-
-                <p class="choice-label">Fais ton choix</p>
-
-                <div class="choices-grid">
-                    <div class="choice-item" onclick="selectChoice('diving')">
-                        <div class="choice-image diving-img">
-                            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop" alt="Plongée">
-                        </div>
-                        <div class="choice-label-btn">🤿 Plongée</div>
-                    </div>
-                    <div class="choice-item" onclick="selectChoice('seaplane')">
-                        <div class="choice-image seaplane-img">
-                            <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=400&h=300&fit=crop" alt="Hydravion">
-                        </div>
-                        <div class="choice-label-btn">🛩️ Hydravion</div>
-                    </div>
+        <!-- Gift box -->
+        <div class="gift-container" id="giftContainer">
+            <div class="gift-box" id="giftBox">
+                <div class="lid">
+                    <div class="bow"></div>
                 </div>
-
-                <p class="footer">Avec tout notre amour <span class="heart">❤️</span></p>
+                <div class="box-body"></div>
             </div>
+        </div>
+        <p class="tap-message" id="tapMessage">Touche le cadeau pour l'ouvrir !</p>
 
-            <!-- Diving confirmation -->
-            <div class="confirmation" id="divingConfirm">
-                <div class="confirmation-icon">🤿🐠</div>
-                <h2>Plongée choisie !</h2>
-                <p>
-                    Prépare-toi à découvrir les merveilles du monde sous-marin !
-                    Un baptême de plongée inoubliable t'attend.
-                </p>
-                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                    On s'occupe de tout organiser avec toi ! 🎁
-                </p>
-                <button class="back-btn" onclick="goBack()">← Changer de choix</button>
+        <!-- Choice screen -->
+        <div class="choice-container" id="choiceContainer">
+            <p class="choice-title">Tu as le choix !</p>
+            <p class="choice-message">
+                Cette année, choisis l'aventure qui te fait le plus rêver...
+            </p>
+            <div class="choices-grid">
+                <div class="choice-item" onclick="selectChoice('diving')">
+                    <div class="choice-image">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop" alt="Plongée">
+                    </div>
+                    <div class="choice-label-btn">🤿 Plongée</div>
+                </div>
+                <div class="choice-item" onclick="selectChoice('seaplane')">
+                    <div class="choice-image">
+                        <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=400&h=300&fit=crop" alt="Hydravion">
+                    </div>
+                    <div class="choice-label-btn">🛩️ Hydravion</div>
+                </div>
             </div>
+            <p class="signature">Avec amour, Mathis & Aimée ❤️</p>
+        </div>
 
-            <!-- Seaplane confirmation -->
-            <div class="confirmation" id="seaplaneConfirm">
-                <div class="confirmation-icon">🛩️✨</div>
-                <h2>Hydravion choisi !</h2>
-                <p>
-                    Envole-toi pour une aventure dans les airs !
-                    Un vol en hydravion magique t'attend.
-                </p>
-                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                    On s'occupe de tout organiser avec toi ! 🎁
-                </p>
-                <button class="back-btn" onclick="goBack()">← Changer de choix</button>
+        <!-- Diving confirmation -->
+        <div class="confirm-container" id="divingConfirm">
+            <div class="confirm-icon">🤿🐠🐟</div>
+            <p class="confirm-title">Baptême de Plongée !</p>
+            <div class="confirm-message">
+                Prépare-toi à découvrir les merveilles du monde sous-marin !
+                Une aventure inoubliable t'attend dans les profondeurs...
             </div>
+            <p class="signature">On s'occupe de tout organiser avec toi ! 🎁</p>
+            <p class="signature">Avec amour, Mathis & Aimée ❤️</p>
+            <button class="back-btn" onclick="goBack()">← Changer de choix</button>
+        </div>
+
+        <!-- Seaplane confirmation -->
+        <div class="confirm-container" id="seaplaneConfirm">
+            <div class="confirm-icon">🛩️✨☁️</div>
+            <p class="confirm-title">Vol en Hydravion !</p>
+            <div class="confirm-message">
+                Envole-toi pour une aventure magique dans les airs !
+                Des paysages à couper le souffle t'attendent...
+            </div>
+            <p class="signature">On s'occupe de tout organiser avec toi ! 🎁</p>
+            <p class="signature">Avec amour, Mathis & Aimée ❤️</p>
+            <button class="back-btn" onclick="goBack()">← Changer de choix</button>
         </div>
     </div>
 
     <script>
+        // Create stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
         // Create snowflakes
         function createSnowflakes() {
             const container = document.getElementById('snowflakes');
-            const snowflakeCount = 50;
-            const snowflakeChars = ['❄', '❅', '❆', '✦', '✧'];
+            const snowflakeChars = ['❄', '❅', '❆', '✻', '✼'];
 
-            for (let i = 0; i < snowflakeCount; i++) {
+            for (let i = 0; i < 30; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
-                snowflake.innerHTML = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+                snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
                 snowflake.style.left = Math.random() * 100 + '%';
-                snowflake.style.fontSize = (Math.random() * 10 + 8) + 'px';
-                snowflake.style.opacity = Math.random() * 0.6 + 0.4;
-                snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
-                snowflake.style.animationDelay = (Math.random() * 10) + 's';
+                snowflake.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.fontSize = (Math.random() * 0.8 + 0.6) + 'rem';
                 container.appendChild(snowflake);
             }
         }
 
-        createSnowflakes();
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#00d4ff', '#00ff88', '#ffdd00', '#ff8c00', '#ff6b6b', '#e91e63', '#fff'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 50);
+            }
+        }
 
         // Create bubbles for diving theme
         function createBubbles() {
@@ -513,37 +698,65 @@
             }
         }
 
-        createBubbles();
-        createClouds();
+        let giftOpened = false;
+
+        function openGift() {
+            if (giftOpened) return;
+            giftOpened = true;
+
+            const giftBox = document.getElementById('giftBox');
+            const giftContainer = document.getElementById('giftContainer');
+            const tapMessage = document.getElementById('tapMessage');
+            const choiceContainer = document.getElementById('choiceContainer');
+
+            giftBox.classList.add('opened');
+            tapMessage.style.display = 'none';
+
+            setTimeout(() => {
+                createConfetti();
+                giftContainer.style.display = 'none';
+                choiceContainer.classList.add('show');
+            }, 800);
+        }
 
         function selectChoice(choice) {
-            document.getElementById('choiceCard').classList.add('hidden');
+            document.getElementById('choiceContainer').classList.remove('show');
+            document.getElementById('choiceContainer').style.display = 'none';
             document.getElementById('snowflakes').style.opacity = '0';
 
             if (choice === 'diving') {
-                document.getElementById('divingConfirm').classList.add('active');
+                document.getElementById('divingConfirm').classList.add('show');
                 document.body.classList.add('theme-diving');
                 document.body.classList.remove('theme-seaplane');
                 document.getElementById('bubbles').classList.add('active');
                 document.getElementById('clouds').classList.remove('active');
             } else {
-                document.getElementById('seaplaneConfirm').classList.add('active');
+                document.getElementById('seaplaneConfirm').classList.add('show');
                 document.body.classList.add('theme-seaplane');
                 document.body.classList.remove('theme-diving');
                 document.getElementById('clouds').classList.add('active');
                 document.getElementById('bubbles').classList.remove('active');
             }
+            createConfetti();
         }
 
         function goBack() {
-            document.getElementById('choiceCard').classList.remove('hidden');
-            document.getElementById('divingConfirm').classList.remove('active');
-            document.getElementById('seaplaneConfirm').classList.remove('active');
+            document.getElementById('choiceContainer').style.display = 'block';
+            document.getElementById('choiceContainer').classList.add('show');
+            document.getElementById('divingConfirm').classList.remove('show');
+            document.getElementById('seaplaneConfirm').classList.remove('show');
             document.body.classList.remove('theme-diving', 'theme-seaplane');
             document.getElementById('bubbles').classList.remove('active');
             document.getElementById('clouds').classList.remove('active');
             document.getElementById('snowflakes').style.opacity = '1';
         }
+
+        document.getElementById('giftBox').addEventListener('click', openGift);
+
+        createStars();
+        createSnowflakes();
+        createBubbles();
+        createClouds();
     </script>
 </body>
 </html>

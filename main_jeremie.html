@@ -303,37 +303,22 @@
             50% { transform: translateY(-10px); }
         }
 
-        .platforms {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 15px 0;
-        }
-
         .platform-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 25px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-        }
-
-        .platform-badge.ps5 {
-            background: linear-gradient(135deg, #003087 0%, #0070d1 100%);
-            border: 2px solid #0070d1;
-        }
-
-        .platform-badge.xbox {
-            background: linear-gradient(135deg, #107c10 0%, #0e7a0d 100%);
-            border: 2px solid #0e7a0d;
+            background: linear-gradient(135deg, #3a3a3a 0%, #2d2d2d 100%);
+            border: 2px solid #4a4a4a;
+            margin: 15px 0;
         }
 
         .platform-badge span {
             color: #fff;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         .message {
@@ -345,6 +330,13 @@
             background: rgba(220,38,38,0.1);
             border-radius: 15px;
             border: 1px solid rgba(220,38,38,0.3);
+        }
+
+        .signature {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 1.5rem;
+            color: #fbbf24;
+            margin-top: 20px;
         }
 
         /* Étoiles scintillantes */
@@ -411,25 +403,15 @@
                  alt="Clair Obscur: Expedition 33"
                  class="game-image">
 
-            <div class="platforms">
-                <div class="platform-badge ps5">
-                    <svg viewBox="0 0 50 50" fill="white" width="30" height="30">
-                        <text x="5" y="32" font-size="16" font-weight="bold" fill="white">PS5</text>
-                    </svg>
-                    <span>PlayStation 5</span>
-                </div>
-                <div class="platform-badge xbox">
-                    <svg viewBox="0 0 50 50" fill="white" width="30" height="30">
-                        <text x="2" y="32" font-size="12" font-weight="bold" fill="#0e7a0d">XBOX</text>
-                    </svg>
-                    <span>Xbox Series X</span>
-                </div>
+            <div class="platform-badge">
+                <span>PlayStation / Xbox</span>
             </div>
 
             <div class="message">
                 Prépare-toi pour une aventure épique dans un monde où l'art rencontre le RPG !
                 Profite bien de ce voyage extraordinaire !
             </div>
+            <p class="signature">Avec amour, Mathis</p>
             </div>
         </div>
     </div>
