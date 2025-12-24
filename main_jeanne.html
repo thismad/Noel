@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Joyeux Noël Jeanne 🎄</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #fff;
+            transition: background 1s ease;
+        }
+
+        body.theme-diving {
+            background: linear-gradient(135deg, #0a1628 0%, #0d3b66 50%, #006d77 100%);
+        }
+
+        body.theme-seaplane {
+            background: linear-gradient(135deg, #1a1a2e 0%, #4a3f6b 50%, #f093fb 100%);
+        }
+
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #fff;
+            font-size: 1rem;
+            animation: fall linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .christmas-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffd700, #ffec8b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .message {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .choice-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1.2rem 2rem;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-diving {
+            background: linear-gradient(135deg, #00b4db, #0083b0);
+            color: #fff;
+        }
+
+        .btn-diving:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 180, 219, 0.4);
+        }
+
+        .btn-seaplane {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: #fff;
+        }
+
+        .btn-seaplane:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+        }
+
+        .btn-icon {
+            font-size: 1.5rem;
+        }
+
+        .choices-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .choice-item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .choice-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .choice-item:active {
+            transform: scale(0.98);
+        }
+
+        .choice-image {
+            width: 100%;
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .choice-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .choice-item:hover .choice-image img {
+            transform: scale(1.1);
+        }
+
+        .choice-label-btn {
+            padding: 0.8rem 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Confirmation screen */
+        .confirmation {
+            display: none;
+            text-align: center;
+        }
+
+        .confirmation.active {
+            display: block;
+        }
+
+        .choice-card.hidden {
+            display: none;
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .confirmation h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .confirmation p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .back-btn {
+            margin-top: 2rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Themed particles */
+        .bubbles, .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .bubbles.active, .clouds.active {
+            opacity: 1;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -20px;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+            border-radius: 50%;
+            animation: rise linear infinite;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+
+        .cloud {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: drift linear infinite;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translateX(-100px);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px));
+            }
+        }
+
+        /* Fish swimming for diving theme */
+        .fish {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: swim linear infinite;
+        }
+
+        @keyframes swim {
+            0% {
+                transform: translateX(-50px) scaleX(1);
+            }
+            100% {
+                transform: translateX(calc(100vw + 50px)) scaleX(1);
+            }
+        }
+
+        /* Seaplane flying */
+        .plane {
+            position: absolute;
+            font-size: 2rem;
+            animation: fly linear infinite;
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translateX(-100px) translateY(0);
+            }
+            50% {
+                transform: translateX(50vw) translateY(-20px);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="snowflakes" id="snowflakes"></div>
+    <div class="bubbles" id="bubbles"></div>
+    <div class="clouds" id="clouds"></div>
+
+    <div class="container">
+        <div class="card">
+            <!-- Choice screen -->
+            <div class="choice-card" id="choiceCard">
+                <div class="christmas-icon">🎄</div>
+                <h1>Joyeux Noël Jeanne</h1>
+                <p class="subtitle">Un cadeau t'attend...</p>
+
+                <p class="message">
+                    Cette année, tu as le choix entre deux aventures extraordinaires.
+                    Laquelle te fait le plus rêver ?
+                </p>
+
+                <p class="choice-label">Fais ton choix</p>
+
+                <div class="choices-grid">
+                    <div class="choice-item" onclick="selectChoice('diving')">
+                        <div class="choice-image diving-img">
+                            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop" alt="Plongée">
+                        </div>
+                        <div class="choice-label-btn">🤿 Plongée</div>
+                    </div>
+                    <div class="choice-item" onclick="selectChoice('seaplane')">
+                        <div class="choice-image seaplane-img">
+                            <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=400&h=300&fit=crop" alt="Hydravion">
+                        </div>
+                        <div class="choice-label-btn">🛩️ Hydravion</div>
+                    </div>
+                </div>
+
+                <p class="footer">Avec tout notre amour <span class="heart">❤️</span></p>
+            </div>
+
+            <!-- Diving confirmation -->
+            <div class="confirmation" id="divingConfirm">
+                <div class="confirmation-icon">🤿🐠</div>
+                <h2>Plongée choisie !</h2>
+                <p>
+                    Prépare-toi à découvrir les merveilles du monde sous-marin !
+                    Un baptême de plongée inoubliable t'attend.
+                </p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                    On s'occupe de tout organiser avec toi ! 🎁
+                </p>
+                <button class="back-btn" onclick="goBack()">← Changer de choix</button>
+            </div>
+
+            <!-- Seaplane confirmation -->
+            <div class="confirmation" id="seaplaneConfirm">
+                <div class="confirmation-icon">🛩️✨</div>
+                <h2>Hydravion choisi !</h2>
+                <p>
+                    Envole-toi pour une aventure dans les airs !
+                    Un vol en hydravion magique t'attend.
+                </p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                    On s'occupe de tout organiser avec toi ! 🎁
+                </p>
+                <button class="back-btn" onclick="goBack()">← Changer de choix</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create snowflakes
+        function createSnowflakes() {
+            const container = document.getElementById('snowflakes');
+            const snowflakeCount = 50;
+            const snowflakeChars = ['❄', '❅', '❆', '✦', '✧'];
+
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.fontSize = (Math.random() * 10 + 8) + 'px';
+                snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+                snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                snowflake.style.animationDelay = (Math.random() * 10) + 's';
+                container.appendChild(snowflake);
+            }
+        }
+
+        createSnowflakes();
+
+        // Create bubbles for diving theme
+        function createBubbles() {
+            const container = document.getElementById('bubbles');
+            container.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.width = (Math.random() * 15 + 5) + 'px';
+                bubble.style.height = bubble.style.width;
+                bubble.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                bubble.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(bubble);
+            }
+            // Add fish
+            const fishEmojis = ['🐠', '🐟', '🐡', '🦈', '🐙', '🦑', '🐚', '🦀'];
+            for (let i = 0; i < 8; i++) {
+                const fish = document.createElement('div');
+                fish.className = 'fish';
+                fish.innerHTML = fishEmojis[Math.floor(Math.random() * fishEmojis.length)];
+                fish.style.top = (Math.random() * 80 + 10) + '%';
+                fish.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                fish.style.animationDelay = (Math.random() * 10) + 's';
+                container.appendChild(fish);
+            }
+        }
+
+        // Create clouds for seaplane theme
+        function createClouds() {
+            const container = document.getElementById('clouds');
+            container.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const cloud = document.createElement('div');
+                cloud.className = 'cloud';
+                cloud.innerHTML = '☁️';
+                cloud.style.top = (Math.random() * 60 + 5) + '%';
+                cloud.style.fontSize = (Math.random() * 2 + 1.5) + 'rem';
+                cloud.style.animationDuration = (Math.random() * 20 + 15) + 's';
+                cloud.style.animationDelay = (Math.random() * 15) + 's';
+                container.appendChild(cloud);
+            }
+            // Add planes
+            for (let i = 0; i < 3; i++) {
+                const plane = document.createElement('div');
+                plane.className = 'plane';
+                plane.innerHTML = '🛩️';
+                plane.style.top = (Math.random() * 40 + 10) + '%';
+                plane.style.animationDuration = (Math.random() * 15 + 12) + 's';
+                plane.style.animationDelay = (Math.random() * 10) + 's';
+                container.appendChild(plane);
+            }
+        }
+
+        createBubbles();
+        createClouds();
+
+        function selectChoice(choice) {
+            document.getElementById('choiceCard').classList.add('hidden');
+            document.getElementById('snowflakes').style.opacity = '0';
+
+            if (choice === 'diving') {
+                document.getElementById('divingConfirm').classList.add('active');
+                document.body.classList.add('theme-diving');
+                document.body.classList.remove('theme-seaplane');
+                document.getElementById('bubbles').classList.add('active');
+                document.getElementById('clouds').classList.remove('active');
+            } else {
+                document.getElementById('seaplaneConfirm').classList.add('active');
+                document.body.classList.add('theme-seaplane');
+                document.body.classList.remove('theme-diving');
+                document.getElementById('clouds').classList.add('active');
+                document.getElementById('bubbles').classList.remove('active');
+            }
+        }
+
+        function goBack() {
+            document.getElementById('choiceCard').classList.remove('hidden');
+            document.getElementById('divingConfirm').classList.remove('active');
+            document.getElementById('seaplaneConfirm').classList.remove('active');
+            document.body.classList.remove('theme-diving', 'theme-seaplane');
+            document.getElementById('bubbles').classList.remove('active');
+            document.getElementById('clouds').classList.remove('active');
+            document.getElementById('snowflakes').style.opacity = '1';
+        }
+    </script>
+</body>
+</html>

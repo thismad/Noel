@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyeux Noël Jérémie !</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a0a0a 0%, #2d0a0a 50%, #1a0a0a 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Flocons de neige */
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #fff;
+            font-size: 1rem;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.3;
+            }
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Lueur de fond */
+        .glow-bg {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(220,38,38,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse-glow 3s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
+        .greeting {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .greeting h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.5rem;
+            color: #dc2626;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 30px rgba(220,38,38,0.5);
+            margin-bottom: 10px;
+            animation: title-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes title-glow {
+            0% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(220,38,38,0.5); }
+            100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 40px rgba(220,38,38,0.8), 0 0 60px rgba(220,38,38,0.4); }
+        }
+
+        .greeting p {
+            color: #fecaca;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Cadeau */
+        .gift-container {
+            perspective: 1000px;
+            margin: 20px 0;
+        }
+
+        .gift-box {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+
+        .gift-box.opened {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .box-base {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(145deg, #dc2626 0%, #991b1b 100%);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 2px 0 rgba(255,255,255,0.2);
+        }
+
+        .box-lid {
+            position: absolute;
+            top: 0;
+            width: 110%;
+            left: -5%;
+            height: 60px;
+            background: linear-gradient(145deg, #ef4444 0%, #b91c1c 100%);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3), inset 0 2px 0 rgba(255,255,255,0.2);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-origin: center bottom;
+            z-index: 2;
+        }
+
+        .gift-box.opened .box-lid {
+            transform: rotateX(-120deg) translateY(-80px);
+        }
+
+        /* Ruban */
+        .ribbon-v {
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 50%, #fbbf24 100%);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .ribbon-h {
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 50%, #fbbf24 100%);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .bow {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+
+        .bow-loop {
+            width: 40px;
+            height: 30px;
+            background: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2);
+        }
+
+        .bow-loop.left {
+            transform: rotate(-30deg);
+            left: -30px;
+        }
+
+        .bow-loop.right {
+            transform: rotate(30deg);
+            right: -30px;
+        }
+
+        .bow-center {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(145deg, #fbbf24 0%, #b45309 100%);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .tap-hint {
+            color: #fecaca;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Contenu révélé */
+        .reveal-content {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+            max-width: 350px;
+        }
+
+        .reveal-content.show {
+            display: block;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #dc2626;
+            top: -10px;
+            animation: confetti-fall 3s linear forwards;
+            z-index: 999;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .game-title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2.2rem;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(220,38,38,0.8), 0 0 40px rgba(220,38,38,0.4);
+            margin-bottom: 15px;
+        }
+
+        .game-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 30px rgba(220,38,38,0.3);
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .platforms {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .platform-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+
+        .platform-badge.ps5 {
+            background: linear-gradient(135deg, #003087 0%, #0070d1 100%);
+            border: 2px solid #0070d1;
+        }
+
+        .platform-badge.xbox {
+            background: linear-gradient(135deg, #107c10 0%, #0e7a0d 100%);
+            border: 2px solid #0e7a0d;
+        }
+
+        .platform-badge span {
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .message {
+            color: #fecaca;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(220,38,38,0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(220,38,38,0.3);
+        }
+
+        /* Étoiles scintillantes */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="snowflakes" id="snowflakes"></div>
+    <div class="glow-bg"></div>
+
+    <div class="container">
+        <div class="greeting">
+            <h1>🎄 Joyeux Noël Jérémie ! 🎄</h1>
+            <p>Un cadeau t'attend...</p>
+        </div>
+
+        <div class="gift-wrapper" id="giftWrapper">
+            <div class="gift-container">
+                <div class="gift-box" id="giftBox" onclick="openGift()">
+                    <div class="box-lid">
+                        <div class="ribbon-h"></div>
+                        <div class="bow">
+                            <div class="bow-loop left"></div>
+                            <div class="bow-loop right"></div>
+                            <div class="bow-center"></div>
+                        </div>
+                    </div>
+                    <div class="box-base">
+                        <div class="ribbon-v"></div>
+                        <div class="ribbon-h"></div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="tap-hint" id="tapHint">Appuie sur le cadeau !</p>
+
+            <div class="reveal-content" id="revealContent">
+            <h2 class="game-title">Clair Obscur: Expedition 33</h2>
+
+            <img src="download.jpeg"
+                 alt="Clair Obscur: Expedition 33"
+                 class="game-image">
+
+            <div class="platforms">
+                <div class="platform-badge ps5">
+                    <svg viewBox="0 0 50 50" fill="white" width="30" height="30">
+                        <text x="5" y="32" font-size="16" font-weight="bold" fill="white">PS5</text>
+                    </svg>
+                    <span>PlayStation 5</span>
+                </div>
+                <div class="platform-badge xbox">
+                    <svg viewBox="0 0 50 50" fill="white" width="30" height="30">
+                        <text x="2" y="32" font-size="12" font-weight="bold" fill="#0e7a0d">XBOX</text>
+                    </svg>
+                    <span>Xbox Series X</span>
+                </div>
+            </div>
+
+            <div class="message">
+                Prépare-toi pour une aventure épique dans un monde où l'art rencontre le RPG !
+                Profite bien de ce voyage extraordinaire !
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Création des étoiles
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Création des flocons
+        function createSnowflakes() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const flakes = ['❄', '❅', '❆', '✻', '✼'];
+
+            for (let i = 0; i < 40; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = flakes[Math.floor(Math.random() * flakes.length)];
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.fontSize = (Math.random() * 1 + 0.5) + 'rem';
+                snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+
+        // Création des confettis
+        function createConfetti() {
+            const colors = ['#dc2626', '#fbbf24', '#22c55e', '#3b82f6', '#a855f7', '#fff'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 50);
+            }
+        }
+
+        let giftOpened = false;
+
+        function openGift() {
+            if (giftOpened) return;
+            giftOpened = true;
+
+            const giftBox = document.getElementById('giftBox');
+            const giftContainer = document.querySelector('.gift-container');
+            const tapHint = document.getElementById('tapHint');
+            const revealContent = document.getElementById('revealContent');
+
+            giftBox.classList.add('opened');
+            tapHint.style.display = 'none';
+
+            setTimeout(() => {
+                createConfetti();
+                giftContainer.style.display = 'none';
+                revealContent.classList.add('show');
+            }, 800);
+        }
+
+        // Initialisation
+        createStars();
+        createSnowflakes();
+    </script>
+</body>
+</html>
